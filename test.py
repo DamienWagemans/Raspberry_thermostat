@@ -253,10 +253,10 @@ class app_damien:
         self.Label_info_2_1_1.configure(text='''Chauffage''')
 
 def start_up():
-    thermostat_support.main()
+    test_support.main()
 
 if __name__ == '__main__':
-    thermostat_support.main()
+    test_support.main()
 
 
 
