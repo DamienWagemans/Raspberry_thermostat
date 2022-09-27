@@ -14,7 +14,7 @@ import os.path
 _script = sys.argv[0]
 _location = os.path.dirname(_script)
 
-import thermostat_support
+import test_support
 
 _bgcolor = '#d9d9d9'  # X11 color: 'gray85'
 _fgcolor = '#000000'  # X11 color: 'black'
