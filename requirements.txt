@@ -1,0 +1,4 @@
+kivy
+onewire
+ds18x20
+machine
