@@ -21,11 +21,11 @@ def main(*args):
     # Creates a toplevel widget.
     global _top1, _w1
     _top1 = root
-    _w1 = test.app_damien(_top1)
+    _w1 = thermostat.app_damien(_top1)
     root.mainloop()
 
 if __name__ == '__main__':
-    test.start_up()
+    thermostat.start_up()
 
 
 
