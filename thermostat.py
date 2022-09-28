@@ -10,11 +10,13 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from tkinter.constants import *
 import os.path
+import requests
+
+
 
 _script = sys.argv[0]
 _location = os.path.dirname(_script)
 
-import thermostat_support
 
 _bgcolor = '#d9d9d9'  # X11 color: 'gray85'
 _fgcolor = '#000000'  # X11 color: 'black'
@@ -53,6 +55,10 @@ class app_damien:
         '''This class configures and populates the toplevel window.
            top is the toplevel containing window.'''
 
+        self.heat_needed = 0
+        self.connectivity = 0
+        self.heat_current_status = 0
+
         top.geometry("440x320+459+206")
         top.minsize(120, 1)
         top.maxsize(1698, 984)
@@ -84,7 +90,7 @@ class app_damien:
         self.Button_temp_up.configure(pady="0")
         self.Button_temp_up.configure(relief="solid")
         self.Button_temp_up.configure(text='''+''')
-        self.Button_temp_up.bind('<Button-1>',lambda e:thermostat_support.xxx(e))
+        self.Button_temp_up.bind('<Button-1>', lambda e:self.button_up(e))
 
         self.Button_temp_down = tk.Button(self.top)
         self.Button_temp_down.place(relx=0.795, rely=0.688, height=74, width=77)
@@ -104,7 +110,7 @@ class app_damien:
         self.Button_temp_down.configure(pady="0")
         self.Button_temp_down.configure(relief="solid")
         self.Button_temp_down.configure(text='''-''')
-        self.Button_temp_down.bind('<Button-1>',lambda e:thermostat_support.xxx(e))
+        self.Button_temp_down.bind('<Button-1>', lambda e:self.button_down(e))
 
         _style_code()
         self.TSeparator1 = ttk.Separator(self.top)
@@ -191,7 +197,7 @@ class app_damien:
         self.Label_temp_set.configure(foreground="#d6dae2")
         self.Label_temp_set.configure(highlightbackground="#d9d9d9")
         self.Label_temp_set.configure(highlightcolor="black")
-        self.Label_temp_set.configure(text='''25.3 °C''')
+        self.Label_temp_set.configure(text='''25 °C''')
 
         self.TSeparator3 = ttk.Separator(self.top)
         self.TSeparator3.place(relx=0.359, rely=0.584,  relwidth=0.257)
@@ -218,10 +224,11 @@ class app_damien:
         self.Label_status_chaudiere.configure(compound='left')
         self.Label_status_chaudiere.configure(disabledforeground="#a3a3a3")
         self.Label_status_chaudiere.configure(font="-family {Calibri} -size 16 -weight bold")
-        self.Label_status_chaudiere.configure(foreground="#00ff40")
+        self.Label_status_chaudiere.configure(foreground="#ff0000")
         self.Label_status_chaudiere.configure(highlightbackground="#d9d9d9")
         self.Label_status_chaudiere.configure(highlightcolor="black")
-        self.Label_status_chaudiere.configure(text='''OK''')
+        self.Label_status_chaudiere.configure(text='''NOK''')
+
 
         self.TSeparator4 = ttk.Separator(self.top)
         self.TSeparator4.place(relx=0.059, rely=0.584,  relwidth=0.168)
@@ -254,11 +261,73 @@ class app_damien:
         self.Label_info_2_1_1.configure(highlightcolor="black")
         self.Label_info_2_1_1.configure(text='''Chauffage''')
 
-def start_up():
-    thermostat_support.main()
+    def button_down(self, *args):
+        print('Button down')
+        temp = self.Label_temp_set.cget("text")
+        temp = str(temp).replace(' °C', '')
+        temp = float(temp)
+        temp = temp - 1
+        temp = str(temp) + " °C"
+        self.Label_temp_set.configure(text=temp)
+        self.check_if_heat_is_needed()
+        self.check_if_heat_needed_and_api()
 
-if __name__ == '__main__':
-    thermostat_support.main()
+    def button_up(self, *args):
+        print('Button UP')
+        temp = self.Label_temp_set.cget("text")
+        temp = str(temp).replace(' °C', '')
+        temp = float(temp)
+        temp = temp + 1
+        temp = str(temp) + " °C"
+        self.Label_temp_set.configure(text=temp)
+        self.check_if_heat_is_needed()
+        self.check_if_heat_needed_and_api()
+
+
+    def check_if_heat_is_needed(self):
+        actual_temp = self.Label_temp_local.cget("text").replace(' °C', '')
+        set_temp = self.Label_temp_set.cget("text").replace(' °C', '')
+        print('Actual temp :' + (actual_temp))
+        print('Set temp : ' + (set_temp))
+
+        if float(actual_temp) < float(set_temp) :
+            self.Label_status_chauffe.configure(foreground="#00ff40", text="ON")
+            self.heat_needed = 1
+        else:
+            self.Label_status_chauffe.configure(foreground="#ff0000", text="OFF")
+            self.heat_needed = 0
+
+    def check_if_heat_needed_and_api(self):
+        if (self.heat_needed == 1) & (self.connectivity == 1) & (self.heat_current_status == 0):
+            try:
+                print('Enable heat!')
+                response = requests.post("http://192.168.0.29:500/api/v1/power/on", timeout=10)
+                print('Dans enabling heat : Request done')
+                if response.status_code == "200":
+                    self.heat_current_status = 1
+
+            except:
+                print('Dans enabling heat : Request error')
+
+
+        else :
+            if (self.heat_needed == 0) & (self.connectivity == 1) & (self.heat_current_status == 1):
+                try:
+                    print('Disabling heat!')
+                    response = requests.post("http://192.168.0.29:500/api/v1/power/off", timeout=10)
+                    print('Dans disabling heat : Request done')
+                    if response.status_code == "200":
+                        self.heat_current_status = 1
+
+                except:
+                    print('Dans disabling heat : Request error')
+
+
+
+    def init(self):
+        self.check_if_heat_is_needed()
+        self.check_if_heat_needed_and_api
+
 
 
 

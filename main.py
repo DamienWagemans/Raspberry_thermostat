@@ -1,7 +1,40 @@
+import thermostat
+import tkinter as tk
+import tkinter.ttk as ttk
+import clock_thread
+import date_thread
+import check_connectivity_thread
 
-from kivy.base  import  runTouchApp
-from kivy.lang  import  Builder
-from kivy.garden.knob import  Knob
 
-# LOAD KV UIX
-runTouchApp(Builder.load_file('example.kv'))
+
+
+
+def main(*args):
+    '''Main entry point for the application.'''
+    global root
+    root = tk.Tk()
+
+    root.protocol('WM_DELETE_WINDOW', root.destroy)
+    global _top1,_w1
+    _top1 = root
+    _w1 = thermostat.app_damien(_top1)
+
+    # root.attributes('-fullscreen', True)
+
+    clock = clock_thread.clock(_w1)
+    date = date_thread.date(_w1)
+    check_connectivity = check_connectivity_thread.check_connectivity(_w1)
+    clock.start()
+    date.start()
+    check_connectivity.start()
+
+    _w1.init()
+
+    root.mainloop()
+
+
+
+if __name__ == '__main__':
+    main()
+
+
