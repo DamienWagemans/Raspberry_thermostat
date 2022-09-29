@@ -21,7 +21,7 @@ def main(*args):
     _top1 = root
     _w1 = thermostat.app_damien(_top1)
 
-    # root.attributes('-fullscreen', True)
+    root.attributes('-fullscreen', True)
 
     clock = clock_thread.clock(_w1)
     date = date_thread.date(_w1)
