@@ -4,7 +4,9 @@ import tkinter.ttk as ttk
 import clock_thread
 import date_thread
 import check_connectivity_thread
-
+import logging
+import logger
+import sys
 
 
 
@@ -32,9 +34,13 @@ def main(*args):
 
     root.mainloop()
 
+    stdout_logger = logging.getLogger('STDOUT')
+    sl = logger.StreamToLogger(stdout_logger, logging.INFO)
+    sys.stdout = sl
 
+    stderr_logger = logging.getLogger('STDERR')
+    sl = logger.StreamToLogger(stderr_logger, logging.ERROR)
+    sys.stderr = sl
 
 if __name__ == '__main__':
     main()
-
-
