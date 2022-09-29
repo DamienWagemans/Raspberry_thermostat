@@ -317,7 +317,7 @@ class app_damien:
                     response = requests.post("http://192.168.0.29:5000/api/v1/power/off", timeout=10)
                     print('Dans disabling heat : Request done')
                     if response.status_code == 200:
-                        self.heat_current_status = 1
+                        self.heat_current_status = 0
 
                 except:
                     print('Dans disabling heat : Request error')
