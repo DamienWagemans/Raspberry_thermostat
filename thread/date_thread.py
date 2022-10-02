@@ -3,7 +3,7 @@ import time
 from datetime import datetime
 
 
-class temp(threading.Thread):
+class date(threading.Thread):
     def __init__(self, window):
         threading.Thread.__init__(self)
         self.window = window
