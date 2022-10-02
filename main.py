@@ -1,15 +1,9 @@
 import thermostat
 import tkinter as tk
-import tkinter.ttk as ttk
-import clock_thread
-import date_thread
-import check_connectivity_thread
+from thread import check_connectivity_thread, clock_thread, date_thread, temp_thread
 import logging
-import logger
+from Utilities import logger
 import sys
-import temp_thread
-
-
 
 
 def main(*args):

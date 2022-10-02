@@ -15,7 +15,3 @@ class clock(threading.Thread):
             current_time = now.strftime("%H:%M:%S")
             self.window.Label_time.configure(text=current_time)
             time.sleep(1)
-
-
-
-
