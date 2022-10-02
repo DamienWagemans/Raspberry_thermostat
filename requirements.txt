@@ -1,4 +1,2 @@
 requests
-tkinter
 temper-py
-python3-serial

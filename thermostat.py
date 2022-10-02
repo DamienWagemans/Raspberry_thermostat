@@ -8,7 +8,6 @@
 import sys
 import tkinter as tk
 import tkinter.ttk as ttk
-from tkinter.constants import *
 import os.path
 import requests
 
