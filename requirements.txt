@@ -1,4 +1,2 @@
-kivy
-onewire
-ds18x20
-machine
+adafruit-circuitpython-onewire
+board
