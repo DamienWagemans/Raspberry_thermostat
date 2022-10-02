@@ -10,16 +10,9 @@ class date(threading.Thread):
 
 
     def run(self):
+        temp = temper.Temper()
         while (1):
-            temp = temper.Temper()
             resp = temp.read()
-
             int_temp = resp[0]['internal temperature']
-
             self.window.Label_temp_local.configure(text=str(int_temp))
-
             time.sleep(5)
-
-
-
-
