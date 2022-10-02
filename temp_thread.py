@@ -3,7 +3,7 @@ import time
 from datetime import datetime
 
 
-class temp(threading.Thread):
+class date(threading.Thread):
     def __init__(self, window):
         threading.Thread.__init__(self)
         self.window = window
@@ -12,7 +12,7 @@ class temp(threading.Thread):
     def run(self):
         while (1):
             today = datetime.today().strftime('%d-%m-%Y')
-            self.window.Label_date.configure(text=today)
+            self.window.Label_temp_local.configure(text=today)
             time.sleep(60)
 
 

@@ -7,6 +7,7 @@ import check_connectivity_thread
 import logging
 import logger
 import sys
+import temp_thread
 
 
 
@@ -25,10 +26,13 @@ def main(*args):
 
     clock = clock_thread.clock(_w1)
     date = date_thread.date(_w1)
+    temp = temp_thread.date(_w1)
     check_connectivity = check_connectivity_thread.check_connectivity(_w1)
+
     clock.start()
     date.start()
     check_connectivity.start()
+    temp.start()
 
     _w1.init()
 
