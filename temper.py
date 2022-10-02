@@ -30,6 +30,7 @@ import select
 import struct
 import sys
 
+
 # Non-standard modules
 try:
   import serial
