@@ -1,7 +1,7 @@
 import threading
 import time
 from Utilities import temper
-
+import math
 
 class temp(threading.Thread):
     def __init__(self, window):
@@ -10,9 +10,17 @@ class temp(threading.Thread):
 
 
     def run(self):
-        temp = temper.Temper()
-        while (1):
-            resp = temp.read()
-            int_temp = resp[0]['internal temperature']
-            self.window.Label_temp_local.configure(text=str(int_temp))
-            time.sleep(5)
+        while(1):
+            try:
+                temp = temper.Temper()
+                while (1):
+                    resp = temp.read()
+                    int_temp = resp[0]['internal temperature']
+                    int_temp = round(int_temp,1)
+                    self.window.Label_temp_local.configure(text=str(int_temp) + " °C")
+                    self.window.check_if_heat_is_needed()
+                    self.window.check_if_heat_needed_and_api()
+                    time.sleep(1)
+            except:
+                print("error with temp sensor")
+                time.sleep(5)
