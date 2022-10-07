@@ -283,15 +283,14 @@ class app_damien:
         print('Set temp : ' + (set_temp))
 
         if float(actual_temp) < float(set_temp) :
-            self.Label_status_chauffe.configure(foreground="#00ff40", text="ON")
             self.heat_needed = 1
         else:
-            self.Label_status_chauffe.configure(foreground="#ff0000", text="OFF")
             self.heat_needed = 0
 
     def check_if_heat_needed_and_api(self):
         if (self.heat_needed == 1) & (self.connectivity == 1) & (self.heat_current_status == 0):
             try:
+                self.Label_status_chauffe.configure(foreground="#00ff40", text="ON")
                 print('Enable heat!')
                 response = requests.post("http://192.168.0.29:5000/api/v1/power/on", timeout=10)
                 print('Dans enabling heat : Request done')
@@ -305,6 +304,7 @@ class app_damien:
         else :
             if (self.heat_needed == 0) & (self.connectivity == 1) & (self.heat_current_status == 1):
                 try:
+                    self.Label_status_chauffe.configure(foreground="#ff0000", text="OFF")
                     print('Disabling heat!')
                     response = requests.post("http://192.168.0.29:5000/api/v1/power/off", timeout=10)
                     print('Dans disabling heat : Request done')

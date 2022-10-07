@@ -17,7 +17,6 @@ class temp(threading.Thread):
                     resp = temp.read()
                     int_temp = resp[0]['internal temperature']
                     int_temp = round(int_temp,1)
-                    int_temp = int_temp - 11
                     self.window.Label_temp_local.configure(text=str(int_temp) + " °C")
                     self.window.check_if_heat_is_needed()
                     self.window.check_if_heat_needed_and_api()
