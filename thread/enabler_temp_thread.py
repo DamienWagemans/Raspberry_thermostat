@@ -15,8 +15,10 @@ class enabler_temp(threading.Thread):
 
         if float(actual_temp) < float(set_temp) :
             self.heat_needed = 1
+            self.Label_status_chauffe.configure(foreground="#00ff40", text="ON")
         else:
             self.heat_needed = 0
+            self.Label_status_chauffe.configure(foreground="#ff0000", text="OFF")
 
     def check_if_heat_needed_and_api(self):
         if (self.heat_needed == 1) & (self.connectivity == 1) & (self.heat_current_status == 0):
