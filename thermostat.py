@@ -277,8 +277,7 @@ class app_damien:
 
 
     def init(self):
-        self.check_if_heat_is_needed()
-        self.check_if_heat_needed_and_api
+        pass
 
 
 
