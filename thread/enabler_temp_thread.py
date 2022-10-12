@@ -46,17 +46,17 @@ class enabler_temp(threading.Thread):
                     print('Dans disabling heat : Request error')
 
     def run(self):
-        try:
+        while self.window.connectivity == 0 :
             time.sleep(1)
-            if self.window.connectivity == 1:
-                print('Disabling heat!')
-                response = requests.post("http://192.168.0.29:5000/api/v1/power/off", timeout=10)
-                print('Dans disabling heat : Request done')
-                if response.status_code == 200:
-                    self.heat_current_status = 0
-        except:
-            print('Erreur lors de la desactivation initiale de la chaudiere')
-            self.heat_current_status == 0
+
+        print('Disabling heat!')
+        response = requests.post("http://192.168.0.29:5000/api/v1/power/off", timeout=10)
+        print('Dans disabling heat : Request done')
+        if response.status_code == 200:
+            self.heat_current_status = 0
+            self.Label_status_chauffe.configure(foreground="#ff0000", text="OFF")
+
+
 
 
 
