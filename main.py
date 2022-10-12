@@ -1,6 +1,6 @@
 import thermostat
 import tkinter as tk
-from thread import check_connectivity_thread, clock_thread, date_thread, temp_thread
+from thread import check_connectivity_thread, clock_thread, date_thread, temp_thread, enabler_temp_thread
 import logging
 from Utilities import logger
 import sys
@@ -22,11 +22,13 @@ def main(*args):
     date = date_thread.date(_w1)
     temp = temp_thread.temp(_w1)
     check_connectivity = check_connectivity_thread.check_connectivity(_w1)
+    enabler_temp = enabler_temp_thread.enabler_temp(_w1)
 
     clock.start()
     date.start()
     check_connectivity.start()
     temp.start()
+    enabler_temp.start()
 
     _w1.init()
 
