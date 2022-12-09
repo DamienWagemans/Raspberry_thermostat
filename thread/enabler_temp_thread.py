@@ -24,7 +24,7 @@ class enabler_temp(threading.Thread):
         if (self.window.heat_needed == 1) & (self.window.connectivity == 1) & (self.window.heat_current_status == 0):
             try:
                 print('Enable heat!')
-                response = requests.post("http://192.168.0.29:5000/api/v1/power/on", timeout=10)
+                response = requests.post("http://192.168.0.4/ON", timeout=10)
                 print('Dans enabling heat : Request done')
                 if response.status_code == 200:
                     self.window.heat_current_status = 1
@@ -38,7 +38,7 @@ class enabler_temp(threading.Thread):
             if (self.window.heat_needed == 0) & (self.window.connectivity == 1) & (self.window.heat_current_status == 1):
                 try:
                     print('Disabling heat!')
-                    response = requests.post("http://192.168.0.29:5000/api/v1/power/off", timeout=10)
+                    response = requests.post("http://192.168.0.4/OFF", timeout=10)
                     print('Dans disabling heat : Request done')
                     if response.status_code == 200:
                         self.window.heat_current_status = 0
@@ -52,7 +52,7 @@ class enabler_temp(threading.Thread):
             time.sleep(1)
 
         print('Disabling heat!')
-        response = requests.post("http://192.168.0.29:5000/api/v1/power/off", timeout=10)
+        response = requests.post("http://192.168.0.4/OFF", timeout=10)
         print('Dans disabling heat : Request done')
         if response.status_code == 200:
             self.window.heat_current_status = 0
