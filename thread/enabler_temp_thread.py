@@ -58,10 +58,6 @@ class enabler_temp(threading.Thread):
             self.window.heat_current_status = 0
             self.window.Label_status_chauffe.configure(foreground="#ff0000", text="OFF")
 
-
-
-
-
         while (1):
             self.check_if_heat_is_needed()
             self.check_if_heat_needed_and_api()

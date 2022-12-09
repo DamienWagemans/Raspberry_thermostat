@@ -235,10 +235,10 @@ class app_damien:
         self.Label_status_chauffe.configure(cursor="fleur")
         self.Label_status_chauffe.configure(disabledforeground="#a3a3a3")
         self.Label_status_chauffe.configure(font="-family {Calibri} -size 16 -weight bold")
-        self.Label_status_chauffe.configure(foreground="#00ff40")
+        self.Label_status_chauffe.configure(foreground="#ff0000")
         self.Label_status_chauffe.configure(highlightbackground="#d9d9d9")
         self.Label_status_chauffe.configure(highlightcolor="black")
-        self.Label_status_chauffe.configure(text='''ON''')
+        self.Label_status_chauffe.configure(text="OFF")
 
         self.Label_info_2_1_1 = tk.Label(self.top)
         self.Label_info_2_1_1.place(relx=0.023, rely=0.688, height=31, width=95)
