@@ -21,7 +21,7 @@ class enabler_temp(threading.Thread):
             # self.window.Label_status_chauffe.configure(foreground="#ff0000", text="OFF")
 
     def check_if_heat_needed_and_api(self):
-        if (self.window.heat_needed == 1) & (self.window.connectivity == 1) & (self.window.heat_current_status == 0):
+        if (self.window.heat_needed == 1) & (self.window.connectivity == 1):
             try:
                 print('Enable heat!')
                 response = requests.post("http://192.168.0.4/ON", timeout=10)
@@ -35,7 +35,7 @@ class enabler_temp(threading.Thread):
 
 
         else :
-            if (self.window.heat_needed == 0) & (self.window.connectivity == 1) & (self.window.heat_current_status == 1):
+            if (self.window.heat_needed == 0) & (self.window.connectivity == 1):
                 try:
                     print('Disabling heat!')
                     response = requests.post("http://192.168.0.4/OFF", timeout=10)
@@ -55,7 +55,6 @@ class enabler_temp(threading.Thread):
         response = requests.post("http://192.168.0.4/OFF", timeout=10)
         print('Dans disabling heat : Request done')
         if response.status_code == 200:
-            self.window.heat_current_status = 0
             self.window.Label_status_chauffe.configure(foreground="#ff0000", text="OFF")
 
         while (1):

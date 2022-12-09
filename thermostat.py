@@ -219,7 +219,7 @@ class app_damien:
         self.Label_status_chaudiere.configure(foreground="#ff0000")
         self.Label_status_chaudiere.configure(highlightbackground="#d9d9d9")
         self.Label_status_chaudiere.configure(highlightcolor="black")
-        self.Label_status_chaudiere.configure(text='''NOK''')
+        self.Label_status_chaudiere.configure(text="NOK")
 
 
         self.TSeparator4 = ttk.Separator(self.top)
