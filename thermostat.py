@@ -162,7 +162,7 @@ class app_damien:
         self.Label_info_1.configure(foreground="#d6dae2")
         self.Label_info_1.configure(highlightbackground="#d9d9d9")
         self.Label_info_1.configure(highlightcolor="black")
-        self.Label_info_1.configure(text='''Température souhaitée :''')
+        self.Label_info_1.configure(text='''Temperature souhaitee :''')
 
         self.Label_temp_local = tk.Label(self.top)
         self.Label_temp_local.place(relx=0.318, rely=0.281, height=71, width=196)
