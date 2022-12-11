@@ -189,7 +189,7 @@ class app_damien:
         self.Label_temp_set.configure(foreground="#d6dae2")
         self.Label_temp_set.configure(highlightbackground="#d9d9d9")
         self.Label_temp_set.configure(highlightcolor="black")
-        self.Label_temp_set.configure(text='''25 °C''')
+        self.Label_temp_set.configure(text='''17 °C''')
 
         self.TSeparator3 = ttk.Separator(self.top)
         self.TSeparator3.place(relx=0.359, rely=0.584,  relwidth=0.257)
